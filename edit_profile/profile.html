@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="profile.css"> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <nav class="menu">
+            <a class="menu__logo" href="../main_page/index.html">КИНОПОИСК</a>
+            <ul class="menu__ul">
+                <li class="menu__li"><a class="menu__link" href="index.html">Главное</a></li>
+                <li class="menu__li"><a class="menu__link" href="my.html">Моё</a></li>
+            </ul>
+            <button onClick="App()" class="logout">
+                <span class="menu__login" >Выйти</span> 
+            </button>
+        </nav>
+    </header>
+    <section class="content">
+        <h3>Редактирование профиля</h3>
+        <h1 id="nickname">sss</h1>
+        <h1 id="email">sss</h1>
+        <div class="card">
+            <div class="preview">
+                <img id="preview_ava" src="https://avatars.mds.yandex.net/get-entity_search/1966007/953590781/S600xU_2x" alt="Предпросмотр аватарки" style="display: block; max-width: 100%; max-height: 200px; margin-bottom: 10px; object-fit: contain; border: 1px solid #ccc; border-radius: 5px;">
+            </div>
+            <div class="input-group">
+                <input class="input" type="email" id="Email" placeholder="Email">
+                <input class="input" type="text" id="NameUser" placeholder="Логин">
+                <input class="input" type="password" id="Password" placeholder="Нынешний пароль">
+                <input class="input" type="password" id="newPassword" placeholder="Новый пароль">
+                <input type="file" class="add_ava" id="fileInput" accept="image/*">
+            </div>
+        </div>
+        <span class="error-message hidden" id="generalError"></span> <!-- Общая ошибка -->
+        <button class="button" type="button" id="submitButton">Принять</button>
+    </section>
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 Кинопоиск. У нас нет прав на него.</p>
+        </div>
+    </footer>
+
+    <script>
+    document.querySelector('.add_ava').addEventListener('change', function(event) {
+        const file = event.target.files[0]; // Получаем выбранный файл
+
+        if (file && file.type.startsWith('image/')) { // Проверяем, что это изображение
+            const reader = new FileReader(); // Создаем объект FileReader
+
+            reader.onload = function(e) {
+                const previewImage = document.getElementById('preview_ava');
+                previewImage.src = e.target.result; // Устанавливаем src для изображения
+                previewImage.style.display = 'block'; // Показываем изображение
+            };
+
+            reader.readAsDataURL(file); // Читаем файл как Data URL
+        } else {
+            alert('Пожалуйста, выберите изображение.');
+        }
+    });
+    </script>
+
+    <script>
+        const previewAva = document.getElementById('preview_ava');
+        const fileInput = document.getElementById('fileInput');
+        const generalError = document.getElementById('generalError'); // Общая ошибка
+        const nameInput = document.getElementById('NameUser');
+        const passwordInput = document.getElementById('Password');
+        const newPasswordInput = document.getElementById('newPassword');
+        const emailInput = document.getElementById('Email');
+        const submitButton = document.getElementById('submitButton');
+
+        // Предпросмотр аватарки
+        fileInput.addEventListener('change', (event) => {
+            if (event.target.files && event.target.files[0]) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    previewAva.src = e.target.result;
+                    previewAva.style.display = 'block';
+                };
+                reader.readAsDataURL(event.target.files[0]);
+            }
+        });
+
+        // Функция для проверки всех полей
+        const checkInputs = () => {
+            const inputs = [nameInput, passwordInput, newPasswordInput, emailInput];
+            const isAnyEmpty = inputs.some(input => !input.value.trim()); // Проверяем, есть ли пустые поля
+
+            if (isAnyEmpty) {
+                generalError.textContent = 'Все поля должны быть заполнены';
+                generalError.classList.remove('hidden');
+            } else {
+                generalError.textContent = '';
+                generalError.classList.add('hidden');
+            }
+
+            return !isAnyEmpty; // Возвращаем true, если все поля заполнены
+        };
+
+        // Функция для обновления профиля
+        async function updateProfile(login, password, newPassword, email) {
+            const token = localStorage.getItem('token'); // Получаем токен из localStorage
+            if (!token) {
+                alert('Вы не авторизованы');
+                return;
+            }
+
+            try {
+                const response = await fetch('/update-profile', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        login: login,
+                        password: newPassword, // Отправляем новый пароль
+                        email: email
+                    })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    alert(data.message);
+                } else {
+                    const errorData = await response.json();
+                    alert(errorData.error);
+                }
+            } catch (error) {
+                console.error('Ошибка при обновлении профиля:', error);
+                alert('Ошибка при обновлении профиля');
+            }
+        }
+
+        // Обработчик нажатия на кнопку
+        submitButton.addEventListener('click', async () => {
+            const isValid = checkInputs();
+            if (!isValid) {
+                return; // Отменяем отправку, если есть ошибки
+            }
+
+            const login = nameInput.value.trim();
+            const password = passwordInput.value.trim();
+            const newPassword = newPasswordInput.value.trim();
+            const email = emailInput.value.trim();
+
+            try {
+                const response = await fetch('http://localhost:8081/update-profile', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        login: login,
+                        password: newPassword,
+                        email: email
+                    })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    alert(data.message);
+                } else {
+                    const errorData = await response.json();
+                    alert(errorData.error);
+                }
+            } catch (error) {
+                console.error('Ошибка при обновлении профиля:', error);
+                alert('Ошибка при обновлении профиля');
+            }
+        });
+    </script>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

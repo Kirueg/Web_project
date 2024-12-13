@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="my.css"> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <nav class="menu">
+            <a class="menu__logo" href="../main_page/index.html">КИНОПОИСК</a>
+            <ul class="menu__ul">
+                <li class="menu__li"><a class="menu__link" href="../main_page/index.html">Главное</a></li>
+                <li class="menu__li"><a class="menu__link" href="my.html">Моё</a></li>
+            </ul>
+            <a class="menu__login" href="../authorization/index.html">Войти</a> </nav>
+    </header>
+    <main>
+        <section class="content">
+            <div class="preview">
+                <img id="preview_ava" src="https://avatars.mds.yandex.net/get-entity_search/1966007/953590781/S600xU_2x" alt="Предпросмотр аватарки" style="display: block; max-width: 100%; max-height: 200px; margin-bottom: 10px; object-fit: contain; border: 1px solid #ccc; border-radius: 5px;">
+            </div>
+            <div class="data">
+                <input class="input" type="text" id="movieTitle" name="movieTitle" placeholder="Введите название фильма">
+                <input class="input" type="text" id="movieYear" name="movieYear" placeholder="Введите год выхода">
+                <textarea class="textarea" id="movieDescription" name="movieDescription" placeholder="Введите описание фильма"></textarea>
+                <textarea class="textarea" id="movieActors" name="movieActors" placeholder="Введите список актеров"></textarea>
+                <textarea class="textarea" id="movieDirectors" name="movieDirectors" placeholder="Введите список режиссеров"></textarea>
+                <textarea class="textarea" id="movieSubtitles" name="movieSubtitles" placeholder="Введите информацию о субтитрах"></textarea>
+                <input type="file" class="add_ava" id="fileInput" accept="image/*">
+                <button class="button" type="button" id="submitButton">Добавить</button>
+            </div>
+        </section>
+    </main>
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 Кинопоиск. У нас нет прав на него.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+    

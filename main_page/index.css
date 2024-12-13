@@ -1,0 +1,180 @@
+html, body { 
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    background-color: #171616;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    position: relative;
+    width: auto;
+    height: 80px;
+    background: #222;
+    box-shadow: 0px 4px 7px rgba(129, 129, 129, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu {
+    background: #222;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.menu__logo {
+    font-size: 30px;
+    line-height: 29px;
+    margin-left: 100px;
+    margin-right: 30px;
+    letter-spacing: -0.015em;
+    color: #e2890d;
+    text-decoration: none;
+    font-family: 'Oswald', sans-serif;
+}
+
+.menu__ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu__li {
+    margin: 0 20px;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 20px;
+    list-style: none;
+    text-transform: capitalize;
+}
+
+.menu__link {
+    text-decoration: none;
+    color: whitesmoke;
+    font-family: 'Exo 2', sans-serif;
+}
+
+.menu__link:hover {
+    color: gray;
+}
+
+.menu__login {
+    margin-right: 60px;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 20px;
+    font-family: 'Exo 2', sans-serif;
+    color: whitesmoke;
+    text-decoration: none;
+    margin-left: 15px;
+    display: inline-block;
+}
+
+.menu__login:hover {
+    color:gray;
+}
+
+.footer {
+    background-color: #222;
+    height: 50px;
+    padding: 20px 0;
+    text-align: center;
+    width: 100%;
+    box-shadow: 0px -4px 7px rgba(129, 129, 129, 0.25);
+    margin-top: auto;
+}
+
+.footer-content {
+    color: whitesmoke;
+    font-size: 16px;
+    font-family: 'Exo 2', sans-serif;
+}
+
+.card-container {
+    display: flex; /* Используем flexbox для выравнивания в строку */
+    flex-wrap: wrap; /* Перенос карточек на новую строку, если не хватает места */
+    gap: 20px; /* Расстояние между карточками */
+    justify-content: left; /* Выравнивание карточек по центру */
+    padding: 20px; /* Отступы вокруг контейнера */
+    max-width: 1200px; /* Максимальная ширина контейнера */
+    margin: 0 auto; /* Выравнивание контейнера по центру */
+}
+
+
+.image-card {
+    display: block;
+    width: 200px; /* Фиксированная ширина карточки */
+    height: 300px; /* Фиксированная высота карточки */
+    border-radius: 20px; /* Закругленные углы */
+    overflow: hidden; /* Скрываем содержимое, выходящее за пределы карточки */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Тень */
+    transition: transform 0.3s ease, filter 0.3s ease; /* Плавные анимации */
+}
+
+.image-card img {
+    width: 100%; /* Изображение занимает всю ширину карточки */
+    height: 100%; /* Изображение занимает всю высоту карточки */
+    object-fit: cover; /* Масштабируем изображение, чтобы оно заполнило карточку */
+    display: block; /* Убираем лишние отступы */
+    transition: transform 0.3s ease; /* Плавное изменение при наведении */
+}
+
+.image-card:hover img {
+    filter: brightness(0.8); /* Затемняем изображение */
+    transform: scale(1.1); /* Увеличиваем изображение */
+}
+
+.input_search {
+    margin-left: 10px;
+    padding: 10px;
+    border: 2px solid #3c3c46;
+    box-sizing: border-box;
+    background-color: #1f1f24;
+    color: white;
+    height: 40px;
+    font-size: 20px;
+    border-radius: 10px;
+    width: 395px;
+}
+.input_search::placeholder {
+    color: whitesmoke;
+}
+
+input::-webkit-input-placeholder       {opacity: 1; transition: opacity 0.3s ease;}
+input::-moz-placeholder                {opacity: 1; transition: opacity 0.3s ease;}
+input:-moz-placeholder                 {opacity: 1; transition: opacity 0.3s ease;}
+input:-ms-input-placeholder            {opacity: 1; transition: opacity 0.3s ease;}
+input:focus::-webkit-input-placeholder {opacity: 0; transition: opacity 0.3s ease;}
+input:focus::-moz-placeholder          {opacity: 0; transition: opacity 0.3s ease;}
+input:focus:-moz-placeholder           {opacity: 0; transition: opacity 0.3s ease;}
+input:focus:-ms-input-placeholder      {opacity: 0; transition: opacity 0.3s ease;}
+
+.avatarka, .menu__login {
+    vertical-align: middle;
+    line-height: 30px; /* Высота аватарки */
+    display: inline-block;
+}
+
+.avatarka{
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    border-radius: 50%;
+    
+    display: none;
+}
+
+.profile_ava {
+    display: flex;
+    align-items: center;
+}
+
