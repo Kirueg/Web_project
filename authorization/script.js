@@ -6,7 +6,8 @@ document.querySelector('.authorization_form').addEventListener('submit', functio
     const password = document.querySelector('.authorization_form input[type="password"]').value.trim();
 
     if (!email || !password) {
-        document.getElementById('errorMessage').textContent = 'Пожалуйста, заполните все поля';
+        generalError.textContent = 'Пожалуйста, заполните все поля';
+        generalError.classList.remove('hidden');
         return; // Прерываем выполнение, если есть пустые поля
     }
 
@@ -53,7 +54,9 @@ document.querySelector('.authorization_form').addEventListener('submit', functio
             });
     })
     .catch(error => {
-        document.getElementById('errorMessage').textContent = 'Ошибка: ' + error.message;
+        console.error("Ошибка:", error.message); // Вывод сообщения об ошибке в консоль
+        generalError.textContent = 'Логин или пароль неверны';
+        generalError.classList.remove('hidden');
     });
 });
 

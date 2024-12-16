@@ -135,6 +135,31 @@ hr{
     margin-top: 10px;
 }
 
+.error-message {
+    color: whitesmoke;
+    background-color: rgba(255, 0, 0, 0.114);
+    font-family: 'Exo 2', sans-serif;
+    font-size: 16px;
+    padding: 5px;
+    height: 30px;
+    border: 1px solid red;
+    border-radius: 5px; /* Закругление границ */
+    margin-bottom: 10px;
+    display: block;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: inline-block;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+.error-message.hidden {
+    display: none;
+}
+
 input::-webkit-input-placeholder       {opacity: 1; transition: opacity 0.3s ease;}
 input::-moz-placeholder                {opacity: 1; transition: opacity 0.3s ease;}
 input:-moz-placeholder                 {opacity: 1; transition: opacity 0.3s ease;}

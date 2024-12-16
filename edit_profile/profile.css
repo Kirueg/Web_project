@@ -119,11 +119,11 @@ body {
 .input-group {
     display: flex;
     display: table-column;
-    width: 400px;
+    width: 100%;
 }
 
 .input {
-    margin-left: 10px;
+    margin-left: 0px;
     margin-bottom: 10px;
     padding: 10px;
     border: 2px solid #3c3c46;
@@ -133,7 +133,7 @@ body {
     height: 40px;
     font-size: 20px;
     border-radius: 10px;
-    width: 395px;
+    width: 100%;
 }
 
 input::-webkit-input-placeholder       {opacity: 1; transition: opacity 0.3s ease;}
@@ -216,10 +216,25 @@ input:focus:-ms-input-placeholder      {opacity: 0; transition: opacity 0.3s eas
     justify-content: space-between;
 }
 
+.logout{
+    background-color: #222;
+    border:0;
+    text-align: center;
+}
+
+.logout:hover{
+    cursor: pointer;
+}
+
 .logout span{
-    color: #171616;
+    color: #fff;
 }
 
 #nickname, #email{
     color: white;
+}
+
+h1{
+    margin: 0px;
+    margin-bottom: 15px;
 }
