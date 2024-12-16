@@ -237,6 +237,7 @@ main {
     width: 800px;
     border-radius: 10px;
     padding: 10px;
+    position: relative;
 }
 
 .reviews p {
@@ -369,4 +370,35 @@ textarea:focus:-ms-input-placeholder      {opacity: 0; transition: opacity 0.3s 
 }
 .half-stars .rating-group input:hover ~ label svg {
     fill: #454545;
+}
+
+
+
+.author_name{
+    display: inline-block;
+    font-weight: bolder;
+    font-size: 20px;
+    margin: 0;
+}
+
+.del_rev{
+    background-color: rgba(0, 0, 0, 0);
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    color: grey;
+    position: absolute;
+    right: 20px;
+    border: 0;
+    font-size: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.xcross{
+    transition: all 0.3s ease;
+}
+.del_rev:hover .xcross{
+    color: white;
+    transform: scale(1.1);
+    font-size: 35px;
 }

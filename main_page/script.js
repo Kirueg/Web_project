@@ -19,35 +19,79 @@ if(isLogg === 'true'){
 
 document.addEventListener("DOMContentLoaded", async () => {
     try {
-        // Запрос данных с сервера
-        const response = await fetch("http://localhost:8080/api/movies");
-        if (!response.ok) {
-            throw new Error("Ошибка при загрузке данных с сервера");
-        }
-
-        const movies = await response.json();
-
-        // Контейнер для карточек фильмов
         const container = document.querySelector(".card-container");
+        const searchInput = document.getElementById("Search");
 
-        // Создаем карточки для каждого фильма
-        movies.forEach((movie) => {
-            const card = document.createElement("div");
-            card.classList.add("card");
+        // Функция для загрузки фильмов
+        const loadMovies = async (searchTerm = "") => {
+            const response = await fetch(`http://localhost:8081/api/movies?search=${searchTerm}`);
+            if (!response.ok) {
+                throw new Error("Ошибка при загрузке данных с сервера");
+            }
 
-            const link = document.createElement("a");
-            link.href = `../movie_page/movie_template.html?id=${movie.id}`; // Переход на страницу фильма
-            link.classList.add("image-card");
+            const movies = await response.json();
 
-            const image = document.createElement("img");
-            image.src = "http://localhost:8080" + movie.image_path; // Путь к изображению
-            image.alt = movie.title;
-            link.appendChild(image);
+            // Очищаем контейнер перед добавлением новых карточек
+            container.innerHTML = "";
 
-            card.appendChild(link);
-            container.appendChild(card);
+            // Создаем карточки для каждого фильма
+            movies.forEach((movie) => {
+                const card = document.createElement("div");
+                card.classList.add("card");
+
+                const link = document.createElement("a");
+                link.href = `../movie_page/movie_template.html?id=${movie.id}`; // Переход на страницу фильма
+                link.classList.add("image-card");
+
+                const image = document.createElement("img");
+                image.src = "http://localhost:8081" + movie.image_path; // Путь к изображению
+                image.alt = movie.title;
+                link.appendChild(image);
+
+                // Добавляем крестик для удаления
+                const deleteIcon = document.createElement("div");
+                deleteIcon.classList.add("delete-icon");
+                deleteIcon.innerHTML = "<span>&times;</span>";
+                deleteIcon.dataset.id = movie.id; // Сохраняем id фильма в data-атрибут
+
+                // Обработчик события для удаления карточки
+                deleteIcon.addEventListener("click", async (event) => {
+                    event.preventDefault(); // Предотвращаем переход по ссылке
+                    const movieID = deleteIcon.dataset.id;
+
+                    // Отправляем запрос на сервер для удаления фильма
+                    const deleteResponse = await fetch(`http://localhost:8081/api/movies/${movieID}`, {
+                        method: "DELETE",
+                    });
+
+                    if (deleteResponse.ok) {
+                        // Удаляем карточку из DOM
+                        card.remove();
+                        console.log("Фильм удален:", movieID);
+                    } else {
+                        console.error("Ошибка при удалении фильма:", deleteResponse.status);
+                    }
+                });
+
+                card.appendChild(link);
+                card.appendChild(deleteIcon); // Добавляем крестик
+                container.appendChild(card);
+            });
+        };
+
+        // Загружаем все фильмы при загрузке страницы
+        loadMovies();
+
+        // Обработчик события для поиска
+        searchInput.addEventListener("input", () => {
+            const searchTerm = searchInput.value.trim();
+            loadMovies(searchTerm);
         });
+
     } catch (error) {
         console.error("Ошибка:", error);
     }
 });
+
+
+

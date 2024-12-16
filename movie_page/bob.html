@@ -13,12 +13,13 @@
 <body>
     <header class="header">
         <nav class="menu">
-            <a class="menu__logo" href="../main_page/index.html">КИНОПОИСК</a>
+            <a class="menu__logo" href="../main_page/index.html">КИНОКРИТИК</a>
             <ul class="menu__ul">
                 <li class="menu__li"><a class="menu__link" href="index.html">Главное</a></li>
-                <li class="menu__li"><a class="menu__link" href="../create_movie/my.html">Моё</a></li>
+                <li class="menu__li"><a class="menu__link" href="../create_movie/my.html">Добавить</a></li>
             </ul>
-            <a class="menu__login" href="../authorization/index.html">Войти</a> </nav>
+            <a class="menu__login" id="enter_lks" href="../authorization/index.html">Войти</a>
+        </nav>
     </header>
     <main>
         <section class="content">
@@ -168,89 +169,5 @@
             }
         }
     </script>
-<!-- <script>
-    function displayReviews() {
-        document.getElementById("reviewsContainer").innerHTML = ""; // Clear existing reviews
-    
-        fetch("http://localhost:8080/reviews")
-        .then(response => {
-            if (!response.ok) {
-            return response.json().then(errorData => {
-                const errorMessage = `Server error: ${errorData.message || JSON.stringify(errorData)}`;
-                throw new Error(errorMessage);
-            }).catch(err => {
-                const errorMessage = `HTTP error! status: ${response.status}, details: ${err.message}`;
-                throw new Error(errorMessage);
-            });
-            }
-            return response.json();
-        })
-        .then(reviews => {
-            reviews.forEach(review => {
-            const reviewElement = document.createElement("div");
-            reviewElement.innerHTML = `<b>${review.author}:</b> <p>${review.text}</p> <span>Оценка: ${review.rating}</span>`;
-            document.getElementById("reviewsContainer").appendChild(reviewElement);
-            });
-        })
-        .catch(error => {
-            console.error("Error fetching reviews:", error);
-            alert(`Error fetching reviews: ${error.message}`); // Show the actual error message
-        });
-    }
-    
-    function submitReview() {
-        const reviewText = document.getElementById("reviewText").value;
-        const ratingInput = document.querySelector('input[name="hsr"]:checked');
-    
-        if (!ratingInput) {
-        alert("Please select a rating.");
-        return;
-        }
-    
-        if (reviewText.trim() === "") {
-        alert("Please enter a review.");
-        return;
-        }
-    
-        const rating = parseFloat(ratingInput.value);
-    
-        fetch("http://localhost:8080/reviews", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            author: "your_name",
-            text: reviewText,
-            rating: rating,
-        }),
-        })
-        .then(response => {
-            if (!response.ok) {
-            return response.json().then(errorData => {
-                const errorMessage = `Server error: ${errorData.message || JSON.stringify(errorData)}`;
-                throw new Error(errorMessage);
-            }).catch(err => {
-                const errorMessage = `HTTP error! status: ${response.status}, details: ${err.message}`;
-                throw new Error(errorMessage);
-            });
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log("Review added:", data);
-            displayReviews();
-            document.getElementById("reviewText").value = "";
-        })
-        .catch(error => {
-            console.error("Error adding review:", error);
-            alert(`Error adding review: ${error.message}`); // Show the actual error
-        });
-    }
-    
-    document.getElementById("submitReview").addEventListener("click", submitReview);
-    
-    displayReviews();
-    </script> -->
 </body>
 </html>

@@ -97,12 +97,7 @@ body {
     font-family: 'Exo 2', sans-serif;
 }
 
-.preview {
-    flex: 1; /* Занимает 1 часть пространства */
-    margin-right: 20px; /* Отступ между изображением и полями ввода */
-}
-
-
+/* Основной контейнер */
 main {
     flex: 1; 
     display: flex;
@@ -111,6 +106,7 @@ main {
     flex-direction: column; 
 }
 
+/* Контейнер для контента */
 .content {
     display: flex;
     align-items: flex-start; /* Выравниваем элементы по верхнему краю */
@@ -120,6 +116,26 @@ main {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     background-color: #222; 
+}
+
+/* Контейнер для изображения */
+/* Контейнер для изображения */
+.preview {
+    flex: 1; /* Занимает 1 часть пространства */
+    margin-right: 20px; /* Отступ между изображением и полями ввода */
+    width: 400px; /* Фиксированная ширина контейнера */
+    height: 400px; /* Фиксированная высота контейнера */
+    overflow: hidden; /* Скрываем содержимое, выходящее за пределы контейнера */
+    border-radius: 8px; /* Закругленные углы */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Тень */
+}
+
+/* Изображение */
+.preview img {
+    width: 100%; /* Изображение занимает всю ширину контейнера */
+    height: 100%; /* Изображение занимает всю высоту контейнера */
+    object-fit: cover; /* Масштабируем изображение, чтобы оно заполнило контейнер */
+    border-radius: 8px; /* Закругленные углы */
 }
 
 .data {
@@ -140,7 +156,6 @@ main {
     resize: vertical; /* Позволяет расширяться только по вертикали */
     box-sizing: border-box; /* Убедитесь, что padding и border включены в ширину */
     margin-right: 10px; /* Добавляем отступ справа */
-    width: 450px;
 }
 
 .input {
@@ -154,7 +169,6 @@ main {
     height: 40px;
     font-size: 20px;
     border-radius: 10px;
-    width: 450px; /* Занимает всю доступную ширину */
 }
 
 
@@ -170,7 +184,6 @@ main {
     font-size: 16px;
     font-family: 'Exo 2', sans-serif;
     color: whitesmoke;
-    width: 427px;
 }
 
 .button {
@@ -186,8 +199,6 @@ main {
     border-radius: 10px;
     margin-bottom: 10px;
     font-weight: bold;
-    width: 450px;
-
 }
 
 input::-webkit-input-placeholder       {opacity: 1; transition: opacity 0.3s ease;}

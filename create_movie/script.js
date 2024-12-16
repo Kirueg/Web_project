@@ -1,11 +1,48 @@
+const email = localStorage.getItem('email');
+        const token = localStorage.getItem('token');
+        const isLogg = localStorage.getItem('isLoggedIn');
+        const login = localStorage.getItem('login');
+        const userId = localStorage.getItem('userId');
+        console.log(isLogg);
+        console.log(email);
+        console.log(token);
+        console.log(login);
+        console.log(userId);
+
+        if(isLogg === 'true'){
+            const lks = document.getElementById('enter_lks');
+            lks.textContent = 'Профиль';
+            lks.href = '../edit_profile/profile.html';
+            const ava = document.getElementsByClassName('avatarka')[0];
+        }
+
+
 // Обработчик изменения файла (загрузка изображения)
 document.getElementById('fileInput').addEventListener('change', function(event) {
     const file = event.target.files[0];
     if (file) {
         const reader = new FileReader();
         reader.onload = function(e) {
-            // Обновляем изображение на странице
-            document.getElementById('preview_ava').src = e.target.result;
+            // Создаем объект изображения
+            const img = new Image();
+            img.src = e.target.result;
+
+            // Обработчик загрузки изображения
+            img.onload = function() {
+                // Создаем canvas для масштабирования изображения
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+
+                // Устанавливаем размеры canvas
+                canvas.width = 300; // Фиксированная ширина
+                canvas.height = 400; // Фиксированная высота
+
+                // Масштабируем изображение
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+                // Обновляем изображение на странице
+                document.getElementById('preview_ava').src = canvas.toDataURL('image/jpeg');
+            }
         }
         reader.readAsDataURL(file);
     }
@@ -38,7 +75,7 @@ document.getElementById('submitButton').addEventListener('click', async () => {
     formData.append('image', fileInput);
 
     try {
-        const response = await fetch('http://localhost:8080/api/add-movie', {
+        const response = await fetch('http://localhost:8081/api/add-movie', {
             method: 'POST',
             body: formData,
         });
@@ -55,7 +92,7 @@ document.getElementById('submitButton').addEventListener('click', async () => {
             document.getElementById('movieSubtitles').value = '';
             document.getElementById('fileInput').value = '';
             // Возвращаем изображение к дефолтному
-            document.getElementById('preview_ava').src = "http://localhost:8080/uploads/default_image.jpg";
+            document.getElementById('preview_ava').src = "http://localhost:8081/uploads/default_image.jpg";
         } else {
             const errorData = await response.json();
             alert(`Ошибка: ${errorData.message}`);
